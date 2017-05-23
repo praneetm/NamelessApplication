@@ -71,10 +71,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(date) || TextUtils.isEmpty(description) || TextUtils.isEmpty(stringAmount)){
             Toast.makeText(this, "Enter all the details", Toast.LENGTH_SHORT).show();
-            return;
         }
         else{
-            adapter.add(new Event(date,description,tag,Float.valueOf(stringAmount)));
+            eventList.add(0,new Event(date,description,tag,Float.valueOf(stringAmount)));
+            adapter.notifyDataSetChanged();
+            mListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mListView.smoothScrollToPosition(0);
+                }
+            });
         }
     }
 }
